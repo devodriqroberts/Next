@@ -10,7 +10,7 @@ import UIKit
 
 class NextListVC: UITableViewController {
     
-    let itemArray = ["Create app store app", "upload app to app store", "Get development job"]
+    var itemArray = ["Create app store app", "upload app to app store", "Get development job"]
     //var isSelected = false
 
     override func viewDidLoad() {
@@ -55,6 +55,29 @@ class NextListVC: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    //MARK:- Add new items
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add Your Next Item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            guard let textFieldText = textField.text else {return}
+            self.itemArray.append(textFieldText)
+            self.tableView.reloadData()
+        }
+        alert.addTextField { (alertTextField) in
+                alertTextField.placeholder = "Create New Item"
+                textField = alertTextField
+            }
+        
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
  
 
     
